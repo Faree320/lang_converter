@@ -1,1 +1,1 @@
-web: gunicorn video_merdge.wsgi --log-file=-
+web: gunicorn lang_converter.wsgi --log-file=-
