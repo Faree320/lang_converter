@@ -1,0 +1,1 @@
+web: gunicorn video_merdge.wsgi --log-file=-
