@@ -10,16 +10,15 @@ from textblob.exceptions import NotTranslated
 def translator_func(request):
     if request.method == "POST":
         data = json.loads(request.body)
+        print(data)
         chunk = data["name"]
         src = data["inputDest"]['value']
         routes_data = []
+
         for dest in data["languages"]:
-            print(dest["value"])
-            print(data)
             translator = Translator()
             translation = translator.translate(chunk, src=src, dest=dest["value"])
             routes_trans = translation.text
-            print(translation.text)
 
             blob = TextBlob(translation.text)
             try:
@@ -41,3 +40,13 @@ def translator_func(request):
 def languages(request):
     if request.method == "GET":
         return JsonResponse({"language": LANGUAGES}, safe=False)
+
+
+@csrf_exempt
+def language_detector(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        chunk = data["name"]
+        translator = Translator()
+        result = translator.detect(chunk)
+        return JsonResponse({"detected": result.lang}, safe=False)
