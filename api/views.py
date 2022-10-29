@@ -30,7 +30,8 @@ def translator_func(request):
             routes_data.append({
                 "translation": routes_trans,
                 "cross_check": routes_cross_check,
-                "language": dest["label"]
+                "label": dest["label"],
+                "value": dest["value"]
             })
         routes = routes_data
         # print(LANGUAGES)
